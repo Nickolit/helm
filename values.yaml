@@ -1,4 +1,4 @@
-# Default Values for my Helm Chart
+# Значения по умолчанию для моего хелм Чарта
 
 container:
-  image: nickolit/k8sphp:latest
+  image: nickolit/k8sphp:latest   # Указан мой докер имидж для примера который содержит дебиан (убунту) + апач сервер
