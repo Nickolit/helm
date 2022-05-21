@@ -8,7 +8,10 @@ apiVersion : apps/v1
 kind: Deployment
 
 metadata:
-  name: {{ .Release.Name }}-deployment-autoscaling
+  name: {{ .Release.Name }}-deployment-autoscaling   
+  
+  # Данный метод замещения названия помогает нам использовать один и тот же манифест но с разными параметрами в values
+  
   labels:
     app  : {{ .Release.Name }}-application
     env  : prod
@@ -26,6 +29,9 @@ spec:
       containers:
         - name : {{ .Release.Name }}-web
           image: {{ .Values.container.image }}
+          
+          # Так же используем имидж из values, при необходимости можно изменить в values
+          
           ports:
             - containerPort: 80
 
@@ -41,12 +47,10 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v2beta1v1
     kind: Deployment
-
-    # Указываем наш деплой
-
     name: {{ .Release.Name }}-deployment-autoscaling
 
   # По требованиям ставим максимальное кол-во подов на 4 (мин 2 оставляю на случай если 1 упадёт, и пока восстановится, 1 "под" запасной останется)
+  # Если нагрузка будет невысокой, используется только 2 ПОДа (для отказоустойчивости) и автоматически добавляются ПОДы если нагрузка вырастет
 
   minReplicas: 2
   maxReplicas: 4
