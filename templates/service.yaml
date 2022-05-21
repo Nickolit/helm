@@ -7,10 +7,10 @@ metadata:
     owner : Nick_Burakovets
 spec:
   selector:
-    project: {{ .Release.Name }} # Selecting PODS with those Labels
+    project: {{ .Release.Name }} # Выбираем ПОД для этих меток
   ports:
     - name       : {{ .Release.Name }}-listener
       protocol   : TCP
-      port       : 80            # Port on Load Balancer
-      targetPort : 80            # Port on POD
+      port       : 80            # Порт лоуд баллансера
+      targetPort : 80            # Порт ПОДа
   type : LoadBalancer
